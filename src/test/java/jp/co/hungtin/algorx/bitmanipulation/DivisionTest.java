@@ -12,11 +12,11 @@ class DivisionTest {
 
     private static Stream<Arguments> providerForDivisionWithBitManipulation() {
         return Stream.of(
-//                Arguments.of(15, 3, 5),
-//                Arguments.of(2048, 2, 1024),
-//                Arguments.of(101, 2, 50),
-                Arguments.of(Integer.MAX_VALUE, Integer.MAX_VALUE, 1)
-//                Arguments.of(Integer.MAX_VALUE, 1, Integer.MAX_VALUE)
+                Arguments.of(15, 3, 5),
+                Arguments.of(2048, 2, 1024),
+                Arguments.of(101, 2, 50),
+                Arguments.of(Integer.MAX_VALUE, Integer.MAX_VALUE, 1),
+                Arguments.of(Integer.MAX_VALUE, 1, Integer.MAX_VALUE)
         );
     }
 
