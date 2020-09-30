@@ -1,57 +1,28 @@
 package jp.co.hungtin.algorx.sodoku;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 class SudokuChecker {
-    public boolean isValidSudoku(char[][] board) {
-        return isBoardRowValid(board) && isBoardColValid(board) && isSmall3x3BoardValid(board);
-    }
+  public String wrapSymbolCharToString(char symbol) {
+    return "(" + symbol + ")";
+  }
 
-    public boolean isBoardRowValid(char[][] board) {
-        Set<Character> set = new HashSet<>();
+  public boolean isValidSudoku(char[][] board) {
+    Set<String> set = new HashSet<>();
+    for (int i = 0; i < board.length; i++) {
+      for (int j = 0; j < board[i].length; j++) {
+        char b = board[i][j];
 
-        for (char[] row : board) {
-            set.clear();
-            for (char symbol : row) {
-                if (symbol != ('.') && !set.add(symbol)) {
-                    return false;
-                }
-            }
+        if (b != '.'
+            && (!set.add(i + wrapSymbolCharToString(b))
+                || !set.add(wrapSymbolCharToString(b) + j)
+                || !set.add(i / 3 + wrapSymbolCharToString(b) + j / 3))) {
+          return false;
         }
-
-        return true;
+      }
     }
 
-    public boolean isBoardColValid(char[][] board) {
-        Set<Character> set = new HashSet<>();
-
-        for (int colIdx = 0; colIdx < 9; colIdx++) {
-            set.clear();
-            for (int rowIdx = 0; rowIdx < 9; rowIdx++) {
-                if (board[rowIdx][colIdx] != ('.') && !set.add(board[rowIdx][colIdx])) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    public boolean isSmall3x3BoardValid(char[][] board) {
-        Set<String> set = new HashSet<>();
-
-        for (int colIdx = 0; colIdx < 9; colIdx++) {
-            for (int rowIdx = 0; rowIdx < 9; rowIdx++) {
-                int boxRowId = rowIdx / 3;
-                int boxColId = colIdx / 3;
-
-                String b = boxRowId + "(" + board[rowIdx][colIdx] + ")" + boxColId;
-                if (board[rowIdx][colIdx] != ('.') && !set.add(b)) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
+    return true;
+  }
 }
